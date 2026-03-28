@@ -1,0 +1,35 @@
+{
+  "name": "designer-reception",
+  "version": "3.0.0",
+  "description": "自动接待设计师各渠道的客户咨询，监控社媒消息并生成结构化设计Brief。",
+  "skillType": "Skill-MCP",
+  "tools": {
+    "builtin": ["WebFetch", "Glob", "Read", "ask_human"],
+    "mcp": {
+      "dingtalk-table": [
+        "search_bases", "create_base", "create_table", "get_tables",
+        "create_records", "update_records", "query_records"
+      ],
+      "dingtalk-doc": [
+        "list_accessible_documents", "get_my_docs_root_dentry_uuid",
+        "write_content_to_document", "create_doc_under_node"
+      ],
+      "dingtalk-contacts": ["get_current_user_profile"],
+      "dingtalk-robot": ["机器人批量发送单聊消息"],
+      "social-inbox": [
+        "list_platforms", "login_platform", "get_login_status",
+        "check_notifications", "check_inbox", "get_conversation",
+        "send_reply", "start_watching", "stop_watching", "get_new_notifications"
+      ]
+    }
+  },
+  "produces": ["briefId", "projectId", "customerId", "baseId"],
+  "consumes": ["knowledgeBaseId"],
+  "mcpDependencies": {
+    "dingtalk-table": "streamable-http",
+    "dingtalk-doc": "streamable-http",
+    "dingtalk-contacts": "streamable-http",
+    "dingtalk-robot": "streamable-http",
+    "social-inbox": "stdio (内置于 ./social-inbox-mcp/, 需 cd social-inbox-mcp && uv sync && uv run playwright install chromium)"
+  }
+}
